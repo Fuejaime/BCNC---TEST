@@ -15,12 +15,6 @@ import java.time.ZoneOffset;
 public interface PriceMapper {
     PriceMapper INSTANCE = Mappers.getMapper(PriceMapper.class);
 
-    @Mapping(source = "price", target = "price")
-    @Mapping(source = "brandId", target = "brandId")
-    @Mapping(source = "currency", target = "currency")
-    @Mapping(source = "priceList", target = "priceList")
-    @Mapping(source = "priority", target = "priority")
-    @Mapping(source = "productId", target = "productId")
     @Mapping(source = "startDate", target = "startDate", qualifiedByName = "localDateTimeToOffsetDateTime")
     @Mapping(source = "endDate", target = "endDate", qualifiedByName = "localDateTimeToOffsetDateTime")
     PriceGet200Response priceToPriceGet200Response(Price price);
