@@ -1,0 +1,62 @@
+openapi: 3.0.1
+info:
+  title: Price API
+  description: API para la consulta de precios en función de la fecha, producto y cadena.
+  version: "1.0"
+paths:
+  /price:
+    get:
+      summary: Obtener el precio aplicable
+      description: Obtiene el precio aplicable para un producto en una fecha específica y para una cadena dada.
+      parameters:
+        - name: applicationDate
+          in: query
+          required: true
+          description: Fecha y hora de aplicación en el formato 'yyyy-MM-dd-HH.mm.ss'
+          schema:
+            type: string
+        - name: productId
+          in: query
+          required: true
+          description: Identificador del producto
+          schema:
+            type: integer
+        - name: brandId
+          in: query
+          required: true
+          description: Identificador de la cadena
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Precio encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceGet200Response'
+        "404":
+          description: Precio no encontrado
+components:
+  schemas:
+    PriceGet200Response:
+      type: object
+      properties:
+        brandId:
+          type: integer
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        priceList:
+          type: integer
+        productId:
+          type: integer
+        priority:
+          type: integer
+        price:
+          type: number
+          format: double
+        currency:
+          type: string
