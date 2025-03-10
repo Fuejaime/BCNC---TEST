@@ -2,7 +2,7 @@ Feature: Test Price API
 
   Scenario: Obtener el precio aplicable
     Given url 'http://localhost:8080/price'
-    And param applicationDate = "2020-06-15T21:00:00"
+    And param applicationDate = "2020-06-16T21:00:00"
     And param productId = 35455
     And param brandId = 1
     When method get
