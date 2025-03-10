@@ -64,4 +64,61 @@ public class PriceTest {
         assertThat(price.getCurrency()).isEqualTo("USD");
     }
 
+    @Test
+    public void testPriceEqualsAndHashCode() {
+        // Arrange
+        LocalDateTime now = LocalDateTime.now();
+        Price price1 = Price.builder()
+                .brandId(1)
+                .startDate(now)
+                .endDate(now.plusDays(1))
+                .priceList(1)
+                .productId(1)
+                .priority(1)
+                .price(BigDecimal.valueOf(123.45))
+                .currency("USD")
+                .build();
+
+        Price price2 = Price.builder()
+                .brandId(1)
+                .startDate(now)
+                .endDate(now.plusDays(1))
+                .priceList(1)
+                .productId(1)
+                .priority(1)
+                .price(BigDecimal.valueOf(123.45))
+                .currency("USD")
+                .build();
+
+        // Act & Assert
+        assertThat(price1).isEqualTo(price2);
+        assertThat(price1.hashCode()).isEqualTo(price2.hashCode());
+    }
+
+    @Test
+    public void testPriceToString() {
+        // Arrange
+        LocalDateTime now = LocalDateTime.now();
+        Price price = Price.builder()
+                .brandId(1)
+                .startDate(now)
+                .endDate(now.plusDays(1))
+                .priceList(1)
+                .productId(1)
+                .priority(1)
+                .price(BigDecimal.valueOf(123.45))
+                .currency("USD")
+                .build();
+
+        // Act & Assert
+        assertThat(price.toString()).contains("brandId=1");
+        assertThat(price.toString()).contains("startDate=" + now.toString());
+        assertThat(price.toString()).contains("endDate=" + now.plusDays(1).toString());
+        assertThat(price.toString()).contains("priceList=1");
+        assertThat(price.toString()).contains("productId=1");
+        assertThat(price.toString()).contains("priority=1");
+        assertThat(price.toString()).contains("price=123.45");
+        assertThat(price.toString()).contains("currency=USD");
+    }
+
 }

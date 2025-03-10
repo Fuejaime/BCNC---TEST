@@ -35,7 +35,5 @@ public class PriceController implements PriceApi {
                 .productId(productId)
                 .brandId(brandId)
                 .build());
-
     }
-
 }

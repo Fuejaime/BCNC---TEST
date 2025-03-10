@@ -38,4 +38,39 @@ public class RequestPriceTest {
         assertThat(requestPrice.getProductId()).isEqualTo(100);
         assertThat(requestPrice.getApplicationDate()).isEqualTo("2023-08-15T10:00:00");
     }
+
+    @Test
+    public void testRequestPriceEqualsAndHashCode() {
+        // Arrange
+        RequestPrice requestPrice1 = RequestPrice.builder()
+                .brandId(1)
+                .productId(100)
+                .applicationDate("2023-08-15T10:00:00")
+                .build();
+
+        RequestPrice requestPrice2 = RequestPrice.builder()
+                .brandId(1)
+                .productId(100)
+                .applicationDate("2023-08-15T10:00:00")
+                .build();
+
+        // Act & Assert
+        assertThat(requestPrice1).isEqualTo(requestPrice2);
+        assertThat(requestPrice1.hashCode()).isEqualTo(requestPrice2.hashCode());
+    }
+
+    @Test
+    public void testRequestPriceToString() {
+        // Arrange
+        RequestPrice requestPrice = RequestPrice.builder()
+                .brandId(1)
+                .productId(100)
+                .applicationDate("2023-08-15T10:00:00")
+                .build();
+
+        // Act & Assert
+        assertThat(requestPrice.toString()).contains("brandId=1");
+        assertThat(requestPrice.toString()).contains("productId=100");
+        assertThat(requestPrice.toString()).contains("applicationDate=2023-08-15T10:00:00");
+    }
 }

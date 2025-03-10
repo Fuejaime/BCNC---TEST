@@ -24,6 +24,5 @@ public class PriceUseCaseImpl implements PriceUseCase {
         } catch (PriceNotFoundException e) {
             throw new PriceNotFoundExceptionDomain("No prices found for the given request");
         }
-        }
-
+    }
 }

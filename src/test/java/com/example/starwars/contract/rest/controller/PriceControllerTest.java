@@ -1,5 +1,6 @@
 package com.example.starwars.contract.rest.controller;
 
+import com.example.starwars.domain.exception.PriceNotFoundExceptionDomain;
 import com.example.starwars.domain.model.Price;
 import com.example.starwars.domain.model.RequestPrice;
 import com.example.starwars.domain.usecase.PriceUseCase;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,6 +19,7 @@ import java.time.ZoneOffset;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -50,6 +53,22 @@ class PriceControllerTest {
         assertEquals(1, response.getProductId());
         assertEquals(now.atOffset(ZoneOffset.UTC), response.getStartDate());
         assertEquals(now.plusDays(1).atOffset(ZoneOffset.UTC), response.getEndDate());
+    }
+
+    @Test
+    void testPriceGetThrowsPriceNotFoundExceptionDomain() {
+        // Arrange
+        LocalDateTime now = LocalDateTime.now();
+        RequestPrice requestPrice = getRequestPrice(now);
+
+        when(priceUseCase.getPrice(requestPrice)).thenThrow(new PriceNotFoundExceptionDomain("Price not found"));
+
+        // Act
+        ResponseEntity<PriceGet200Response> responseEntity = underTest.priceGet(now.toString(), 1, 1);
+
+        // Assert
+        assertEquals(404, responseEntity.getStatusCodeValue());
+        verify(priceUseCase).getPrice(requestPrice);
     }
 
     private static RequestPrice getRequestPrice(LocalDateTime now) {
