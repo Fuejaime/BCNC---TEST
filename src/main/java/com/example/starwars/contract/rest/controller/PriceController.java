@@ -22,26 +22,12 @@ public class PriceController implements PriceApi {
 
     public ResponseEntity<PriceGet200Response> priceGet(String applicationDate, Integer productId, Integer brandId) {
         try {
-            //return ResponseEntity.ok(getPriceGet200Response(getPrice(applicationDate, productId, brandId)));
             return ResponseEntity.ok(PriceMapper.INSTANCE.priceToPriceGet200Response(getPrice(applicationDate, productId, brandId)));
 
         } catch (PriceNotFoundExceptionDomain e) {
             return ResponseEntity.notFound().build();
         }
-        }
-
-    /*private static PriceGet200Response getPriceGet200Response(Price price) {
-        PriceGet200Response priceGet200Response = new PriceGet200Response();
-        priceGet200Response.setPrice(price.getPrice().doubleValue());
-        priceGet200Response.setBrandId(price.getBrandId());
-        priceGet200Response.setCurrency(price.getCurrency());
-        priceGet200Response.setPriceList(price.getPriceList());
-        priceGet200Response.setPriority(price.getPriority());
-        priceGet200Response.setProductId(price.getProductId());
-        priceGet200Response.setStartDate(price.getStartDate().atOffset(ZoneOffset.UTC));
-        priceGet200Response.setEndDate((price.getEndDate().atOffset(ZoneOffset.UTC)));
-        return priceGet200Response;
-    }*/
+    }
 
     private Price getPrice(String applicationDate, Integer productId, Integer brandId) {
        return priceUseCase.getPrice(RequestPrice.builder()
