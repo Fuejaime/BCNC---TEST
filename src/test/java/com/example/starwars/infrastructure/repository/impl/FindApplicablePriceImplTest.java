@@ -40,7 +40,7 @@ public class FindApplicablePriceImplTest {
         List<PriceEntity> priceEntities = Arrays.asList(lowPriorityPrice, highPriorityPrice);
         OffsetDateTime applicationDate = OffsetDateTime.parse("2024-08-15T10:00:00Z");
 
-        when(priceRepository.findByProductIdAndBrandIdAndDate(requestEntity.getProductId(), requestEntity.getBrandId(), applicationDate))
+        when(priceRepository.findByProductIdAndBrandIdAndDate(requestEntity.getProductId(), (long) requestEntity.getBrandId(), applicationDate))
                 .thenReturn(priceEntities);
 
         // Act
@@ -51,7 +51,7 @@ public class FindApplicablePriceImplTest {
         assertThat(result.getPriority()).isEqualTo(2);  // Highest priority
         assertThat(result.getPrice()).isEqualByComparingTo("60.00");
 
-        verify(priceRepository).findByProductIdAndBrandIdAndDate(requestEntity.getProductId(), requestEntity.getBrandId(), applicationDate);
+        verify(priceRepository).findByProductIdAndBrandIdAndDate(requestEntity.getProductId(), (long) requestEntity.getBrandId(), applicationDate);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class FindApplicablePriceImplTest {
 
         OffsetDateTime applicationDate = OffsetDateTime.parse("2024-08-15T10:00:00Z");
 
-        when(priceRepository.findByProductIdAndBrandIdAndDate(requestEntity.getProductId(), requestEntity.getBrandId(), applicationDate))
+        when(priceRepository.findByProductIdAndBrandIdAndDate(requestEntity.getProductId(), (long) requestEntity.getBrandId(), applicationDate))
                 .thenReturn(Collections.emptyList());
 
         // Act & Assert

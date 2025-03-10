@@ -11,10 +11,11 @@ import java.util.List;
 
 @Repository
 public interface PriceRepository extends JpaRepository<PriceEntity, Long> {
-    @Query("SELECT p FROM PriceEntity p WHERE p.productId = :productId AND p.brandId = :brandId " +
+    @Query("SELECT p FROM PriceEntity p WHERE p.productId = :productId AND p.brand.id = :brandId " +
             "AND p.startDate <= :date AND p.endDate >= :date")
     List<PriceEntity> findByProductIdAndBrandIdAndDate(
             @Param("productId") int productId,
-            @Param("brandId") int brandId,
+            @Param("brandId") Long brandId, // Ahora es un Long, ya que es la PK de BrandEntity
             @Param("date") OffsetDateTime date);
-    }
+}
+

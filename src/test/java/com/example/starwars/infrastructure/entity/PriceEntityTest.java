@@ -21,7 +21,7 @@ class PriceEntityTest {
 
         // Assert
         assertThat(priceEntity.getId()).isEqualTo(result.id());
-        assertThat(priceEntity.getBrandId()).isEqualTo(result.brandId());
+        assertThat(priceEntity.getBrand().getId()).isEqualTo(result.brandId());
         assertThat(priceEntity.getStartDate()).isEqualTo(result.startDate());
         assertThat(priceEntity.getEndDate()).isEqualTo(result.endDate());
         assertThat(priceEntity.getPriceList()).isEqualTo(result.priceList());
@@ -43,7 +43,7 @@ class PriceEntityTest {
 
         // Assert
         assertThat(priceEntity.getId()).isEqualTo(result.id());
-        assertThat(priceEntity.getBrandId()).isEqualTo(result.brandId());
+        assertThat(priceEntity.getBrand().getId()).isEqualTo(result.brandId());
         assertThat(priceEntity.getStartDate()).isEqualTo(result.startDate());
         assertThat(priceEntity.getEndDate()).isEqualTo(result.endDate());
         assertThat(priceEntity.getPriceList()).isEqualTo(result.priceList());
@@ -55,8 +55,10 @@ class PriceEntityTest {
 
     private static PriceEntity getPriceEntity(Result result) {
         PriceEntity priceEntity = new PriceEntity();
+        BrandEntity brandEntity = new BrandEntity();
+        brandEntity.setId((long) result.brandId());
+        priceEntity.setBrand(brandEntity);
         priceEntity.setId(result.id());
-        priceEntity.setBrandId(result.brandId());
         priceEntity.setStartDate(result.startDate());
         priceEntity.setEndDate(result.endDate());
         priceEntity.setPriceList(result.priceList());

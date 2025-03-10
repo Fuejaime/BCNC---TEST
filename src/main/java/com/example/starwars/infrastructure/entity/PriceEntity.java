@@ -20,8 +20,9 @@ public class PriceEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "BRAND_ID")
-    private int brandId;
+    @ManyToOne
+    @JoinColumn(name = "BRAND_ID", referencedColumnName = "ID", nullable = false)
+    private BrandEntity brand;
 
     @Column(name = "START_DATE")
     private OffsetDateTime startDate;

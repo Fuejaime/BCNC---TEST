@@ -26,7 +26,7 @@ public class GetPriceAdapter implements GetPriceRepository {
                 .startDate(priceEntity.getStartDate().toLocalDateTime())
                 .endDate(priceEntity.getEndDate().toLocalDateTime())
                 .productId(priceEntity.getProductId())
-                .brandId(priceEntity.getBrandId())
+                .brandId(Math.toIntExact(priceEntity.getBrand().getId()))
                 .price(priceEntity.getPrice())
                 .currency(priceEntity.getCurrency())
                 .priority(priceEntity.getPriority())

@@ -35,7 +35,7 @@ public class FindApplicablePriceImpl implements FindApplicablePrice {
         OffsetDateTime offsetDateTime = localDateTime.atOffset(ZoneOffset.UTC);
         return priceRepository.findByProductIdAndBrandIdAndDate(
                 requestEntityEntity.getProductId(),
-                requestEntityEntity.getBrandId(),
+                (long) requestEntityEntity.getBrandId(),
                 offsetDateTime
         );
     }

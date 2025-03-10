@@ -2,6 +2,7 @@ package com.example.starwars.infrastructure.adapter;
 
 import com.example.starwars.domain.model.Price;
 import com.example.starwars.domain.model.RequestPrice;
+import com.example.starwars.infrastructure.entity.BrandEntity;
 import com.example.starwars.infrastructure.entity.PriceEntity;
 import com.example.starwars.infrastructure.entity.RequestEntity;
 import com.example.starwars.infrastructure.repository.FindApplicablePrice;
@@ -63,9 +64,12 @@ class GetPriceAdapterTest {
     }
 
     private static PriceEntity getPriceEntity() {
+        BrandEntity brandEntity = new BrandEntity();
+        brandEntity.setId(1L);
+        brandEntity.setName("ZARA");
         PriceEntity priceEntity = new PriceEntity();
         priceEntity.setId(1L);
-        priceEntity.setBrandId(1);
+        priceEntity.setBrand(brandEntity);
         priceEntity.setStartDate(OffsetDateTime.of(LocalDateTime.of(2023, 8, 15, 10, 0), OffsetDateTime.now().getOffset()));
         priceEntity.setEndDate(OffsetDateTime.of(LocalDateTime.of(2023, 8, 16, 10, 0), OffsetDateTime.now().getOffset()));
         priceEntity.setPriceList(1);
