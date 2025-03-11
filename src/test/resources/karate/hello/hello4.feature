@@ -11,12 +11,12 @@ Feature: Test Price API
       """
       {
         "brandId": 1,
-        "startDate": "2020-06-14T00:00:00Z",
-        "endDate": "2020-12-31T23:59:59Z",
-        "priceList": 1,
+        "startDate": "2020-06-15T00:00:00Z",
+        "endDate": "2020-06-15T11:00:00Z",
+        "priceList": 3,
         "productId": 35455,
-        "priority": 0,
-        "price": 35.5,
+        "priority": 1,
+        "price": 30.5,
         "currency": "EUR"
       }
       """

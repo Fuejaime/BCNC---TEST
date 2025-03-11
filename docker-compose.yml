@@ -14,3 +14,32 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: "true"
       SPRING_H2_CONSOLE_ENABLED: "true"
+
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    ports:
+      - "9000:9000"  # Expone el puerto 9000 para acceso web
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:h2:tcp://h2db:9092/sonar  # URL para la base de datos
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    depends_on:
+      - springboot-app  # Asegura que tu app esté corriendo antes de SonarQube
+
+  h2db:
+    image: oscarfonts/h2
+    ports:
+      - "9092:9092"
+    environment:
+      - H2_OPTIONS=-ifNotExists
+    volumes:
+      - h2db_data:/opt/h2db
+
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  h2db_data:
