@@ -51,7 +51,7 @@ mvn clean verify sonar:sonar \
 - **Docker & Docker Compose**
 - **Lombok**
 - **JaCoCo** (para cobertura de código)
-- **SonarQube** (para análisis de calidad)
+- **SonarQube CLOUD** (para análisis de calidad)
 
 ## 🔧 Paso 1: Configuración del Proyecto
 
