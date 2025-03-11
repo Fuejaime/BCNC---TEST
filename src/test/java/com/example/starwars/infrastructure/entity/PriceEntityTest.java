@@ -31,28 +31,6 @@ class PriceEntityTest {
         assertThat(priceEntity.getCurrency()).isEqualTo(result.currency());
     }
 
-
-
-    @Test
-    void testPriceEntityConstructorWithArgs() {
-        // Arrange
-        Result result = getResult();
-
-        // Act
-        PriceEntity priceEntity = getPriceEntity(result);
-
-        // Assert
-        assertThat(priceEntity.getId()).isEqualTo(result.id());
-        assertThat(priceEntity.getBrand().getId()).isEqualTo(result.brandId());
-        assertThat(priceEntity.getStartDate()).isEqualTo(result.startDate());
-        assertThat(priceEntity.getEndDate()).isEqualTo(result.endDate());
-        assertThat(priceEntity.getPriceList()).isEqualTo(result.priceList());
-        assertThat(priceEntity.getProductId()).isEqualTo(result.productId());
-        assertThat(priceEntity.getPriority()).isEqualTo(result.priority());
-        assertThat(priceEntity.getPrice()).isEqualTo(result.price());
-        assertThat(priceEntity.getCurrency()).isEqualTo(result.currency());
-    }
-
     private static PriceEntity getPriceEntity(Result result) {
         PriceEntity priceEntity = new PriceEntity();
         BrandEntity brandEntity = new BrandEntity();

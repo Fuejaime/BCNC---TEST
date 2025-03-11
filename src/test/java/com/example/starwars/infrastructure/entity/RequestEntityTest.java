@@ -25,7 +25,7 @@ class RequestEntityTest {
     }
 
     @Test
-    public void testRequestEntityNoArgsConstructor() {
+    void testRequestEntityNoArgsConstructor() {
         // Act
         RequestEntity requestEntity = new RequestEntity();
 
