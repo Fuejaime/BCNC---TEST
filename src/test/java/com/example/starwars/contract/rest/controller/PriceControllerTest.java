@@ -18,7 +18,6 @@ import java.time.ZoneOffset;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -32,7 +31,7 @@ class PriceControllerTest {
     private PriceUseCase priceUseCase;
 
     @Test
-    public void testPriceGet() {
+    void testPriceGet() {
         // Arrange
         LocalDateTime now = LocalDateTime.now();
         Price price = getPrice(now);
@@ -67,7 +66,7 @@ class PriceControllerTest {
         ResponseEntity<PriceGet200Response> responseEntity = underTest.priceGet(now.toString(), 1, 1);
 
         // Assert
-        assertEquals(404, responseEntity.getStatusCodeValue());
+        assertEquals(404, responseEntity.getStatusCode().value());
         verify(priceUseCase).getPrice(requestPrice);
     }
 

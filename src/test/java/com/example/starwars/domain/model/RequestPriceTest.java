@@ -7,10 +7,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-public class RequestPriceTest {
+class RequestPriceTest {
 
     @Test
-    public void testRequestPriceBuilder() {
+    void testRequestPriceBuilder() {
         // Arrange
         RequestPrice requestPrice = RequestPrice.builder()
                 .brandId(1)
@@ -26,7 +26,7 @@ public class RequestPriceTest {
     }
 
     @Test
-    public void testRequestPriceGettersAndSetters() {
+    void testRequestPriceGettersAndSetters() {
         // Arrange
         RequestPrice requestPrice = new RequestPrice();
         requestPrice.setBrandId(1);
@@ -40,7 +40,7 @@ public class RequestPriceTest {
     }
 
     @Test
-    public void testRequestPriceEqualsAndHashCode() {
+    void testRequestPriceEqualsAndHashCode() {
         // Arrange
         RequestPrice requestPrice1 = RequestPrice.builder()
                 .brandId(1)
@@ -56,11 +56,11 @@ public class RequestPriceTest {
 
         // Act & Assert
         assertThat(requestPrice1).isEqualTo(requestPrice2);
-        assertThat(requestPrice1.hashCode()).isEqualTo(requestPrice2.hashCode());
+        assertThat(requestPrice1.hashCode()).hasSameHashCodeAs(requestPrice2);
     }
 
     @Test
-    public void testRequestPriceToString() {
+    void testRequestPriceToString() {
         // Arrange
         RequestPrice requestPrice = RequestPrice.builder()
                 .brandId(1)

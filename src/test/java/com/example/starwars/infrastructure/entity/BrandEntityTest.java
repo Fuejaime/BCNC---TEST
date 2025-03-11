@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class BrandEntityTest {
 
     @Test
-    public void testBrandEntityGettersAndSetters() {
+    void testBrandEntityGettersAndSetters() {
         // Arrange
         Result result = getResult();
 
@@ -21,20 +21,6 @@ class BrandEntityTest {
         assertThat(brandEntity.getId()).isEqualTo(result.id());
         assertThat(brandEntity.getName()).isEqualTo(result.name());
     }
-
-    @Test
-    public void testBrandEntityConstructorWithArgs() {
-        // Arrange
-        Result result = getResult();
-
-        // Act
-        BrandEntity brandEntity = getBrandEntity(result);
-
-        // Assert
-        assertThat(brandEntity.getId()).isEqualTo(result.id());
-        assertThat(brandEntity.getName()).isEqualTo(result.name());
-    }
-
 
     private static BrandEntity getBrandEntity(Result result) {
         BrandEntity brandEntity = new BrandEntity();

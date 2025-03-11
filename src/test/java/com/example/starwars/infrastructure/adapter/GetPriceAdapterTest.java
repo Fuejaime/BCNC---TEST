@@ -29,7 +29,7 @@ class GetPriceAdapterTest {
     private GetPriceAdapter underTest;
 
     @Test
-    public void testGetPrice() {
+    void testGetPrice() {
         // Arrange
         RequestPrice requestPrice = getRequestPrice();
         PriceEntity priceEntity = getPriceEntity();

@@ -1,6 +1,5 @@
 package com.example.starwars.infrastructure.repository.impl;
 
-import com.example.starwars.domain.exception.PriceNotFoundExceptionDomain;
 import com.example.starwars.infrastructure.entity.PriceEntity;
 import com.example.starwars.infrastructure.entity.RequestEntity;
 import com.example.starwars.infrastructure.exception.PriceNotFoundException;
@@ -23,7 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class FindApplicablePriceImplTest {
+class FindApplicablePriceImplTest {
 
     @Mock
     private PriceRepository priceRepository;
@@ -32,7 +31,7 @@ public class FindApplicablePriceImplTest {
     private FindApplicablePriceImpl underTest;
 
     @Test
-    public void testFindApplicablePriceReturnsHighestPriority() {
+    void testFindApplicablePriceReturnsHighestPriority() {
         // Arrange
         RequestEntity requestEntity = getRequestEntity();
         PriceEntity lowPriorityPrice = getPriceEntity();
@@ -55,7 +54,7 @@ public class FindApplicablePriceImplTest {
     }
 
     @Test
-    public void testFindApplicablePriceReturnsNullIfNoPricesFound() {
+    void testFindApplicablePriceReturnsNullIfNoPricesFound() {
         // Arrange
         RequestEntity requestEntity = getRequestEntity();
 

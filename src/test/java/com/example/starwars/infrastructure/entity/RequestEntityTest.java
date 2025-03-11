@@ -11,35 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class RequestEntityTest {
 
     @Test
-    public void testRequestEntityGettersAndSetters() {
-        // Arrange
-        Result result = getResult();
-
-        // Act
-        RequestEntity requestEntity = getRequestEntity(result);
-
-        // Assert
-        assertThat(requestEntity.getBrandId()).isEqualTo(result.brandId());
-        assertThat(requestEntity.getProductId()).isEqualTo(result.productId());
-        assertThat(requestEntity.getApplicationDate()).isEqualTo(result.applicationDate());
-    }
-
-    @Test
-    public void testRequestEntityAllArgsConstructor() {
-        // Arrange
-        Result result = getResult();
-
-        // Act
-        RequestEntity requestEntity = getRequestEntity(result);
-
-        // Assert
-        assertThat(requestEntity.getBrandId()).isEqualTo(result.brandId());
-        assertThat(requestEntity.getProductId()).isEqualTo(result.productId());
-        assertThat(requestEntity.getApplicationDate()).isEqualTo(result.applicationDate());
-    }
-
-    @Test
-    public void testRequestEntityBuilder() {
+    void testRequestEntityGettersAndSetters() {
         // Arrange
         Result result = getResult();
 
@@ -58,8 +30,8 @@ class RequestEntityTest {
         RequestEntity requestEntity = new RequestEntity();
 
         // Assert
-        assertThat(requestEntity.getBrandId()).isEqualTo(0);
-        assertThat(requestEntity.getProductId()).isEqualTo(0);
+        assertThat(requestEntity.getBrandId()).isZero();
+        assertThat(requestEntity.getProductId()).isZero();
         assertThat(requestEntity.getApplicationDate()).isNull();
     }
 

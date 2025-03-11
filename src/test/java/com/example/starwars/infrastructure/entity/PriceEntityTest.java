@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 class PriceEntityTest {
     @Test
-    public void testPriceEntityGettersAndSetters() {
+    void testPriceEntityGettersAndSetters() {
         // Arrange
         Result result = getResult();
 
@@ -34,7 +34,7 @@ class PriceEntityTest {
 
 
     @Test
-    public void testPriceEntityConstructorWithArgs() {
+    void testPriceEntityConstructorWithArgs() {
         // Arrange
         Result result = getResult();
 
