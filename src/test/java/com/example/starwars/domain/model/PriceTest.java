@@ -92,7 +92,7 @@ class PriceTest {
 
         // Act & Assert
         assertThat(price1).isEqualTo(price2);
-        assertThat(price1.hashCode()).isEqualTo(price2.hashCode());
+        assertThat(price1.hashCode()).hasSameHashCodeAs(price2.hashCode());
     }
 
     @Test
