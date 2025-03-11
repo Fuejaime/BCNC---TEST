@@ -12,7 +12,6 @@ jobs:
   sonar:
     name: SonarQube Scan
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -30,13 +29,40 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Build with Maven
+      - name: Build without tests
         run: mvn clean verify -DskipTests
 
       - name: Run SonarQube Scanner
         run: |
           mvn sonar:sonar \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.organization=fuejaime  \
+            -Dsonar.organization=fuejaime \
             -Dsonar.projectKey=Fuejaime_BCNC---TEST \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+
+      - name: Check SonarQube Quality Gate
+        id: quality_gate
+        run: |
+          STATUS=$(curl -s -u "${{ secrets.SONAR_TOKEN }}:" "https://sonarcloud.io/api/qualitygates/project_status?projectKey=Fuejaime_GFT" | jq -r .projectStatus.status)
+          echo "Quality Gate status: $STATUS"
+          if [ "$STATUS" != "OK" ]; then
+            echo "SonarQube Quality Gate failed!"
+            exit 1
+          fi
+
+  tests:
+    name: Run Tests
+    needs: sonar  # Solo se ejecuta si Sonar pasó
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Run Tests
+        run: mvn test
