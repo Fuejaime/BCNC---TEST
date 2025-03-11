@@ -36,6 +36,7 @@ jobs:
       - name: Run SonarQube Scanner
         run: |
           mvn sonar:sonar \
-            -Dsonar.host.url=http://localhost:9000 \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.projectKey=tu-proyecto
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.organization=FueJaime  \
+            -Dsonar.projectKey=BCNC---TEST \
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
