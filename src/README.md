@@ -25,6 +25,19 @@ starwars-application/
 │── README.md
 ```
 
+## ⚙️ Tecnologías Utilizadas
+
+- **Java 17**
+- **Spring Boot 3.x**
+- **Spring Data JPA**
+- **H2 Database (en memoria para pruebas)**
+- **JUnit 5 & Mockito**
+- **Maven**
+- **Docker & Docker Compose**
+- **Lombok**
+- **JaCoCo** (para cobertura de código)
+- **SonarQube** (para análisis de calidad)
+
 ## 🔧 Paso 1: Configuración del Proyecto
 
 ### 1. Clonar o Descomprimir el Proyecto
@@ -32,7 +45,7 @@ starwars-application/
 Si has descargado el proyecto en un archivo ZIP, descomprímelo. Si estás usando Git, clona el repositorio:
 
 ```bash
-git clone https://github.com/usuario/starwars-application.git
+git clone https://github.com/Fuejaime/BCNC---TEST.git
 cd starwars-application
 ```
 
@@ -102,6 +115,18 @@ curl --location 'http://localhost:8080/price?productId=35455&brandId=1&applicati
 | `productId`     | Número | ID del producto |
 | `brandId`       | Número | ID de la marca |
 | `applicationDate` | String (ISO-8601) | Fecha de aplicación en formato `yyyy-MM-dd'T'HH:mm:ss` |
+
+## ✅ Buenas Prácticas Implementadas
+
+✔ **Arquitectura Hexagonal** (Separación de capas y sin acoplamientos).
+
+✔ **Principios SOLID y Clean Code**.
+
+✔ **Adicion Jacoco Report**.
+
+✔ **Respuestas con códigos HTTP específicos**.
+
+✔ **Estrategia de commits con convenciones estándar**.
 
 ## 📜 Licencia
 
