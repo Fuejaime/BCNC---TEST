@@ -23,8 +23,23 @@ starwars-application/
 │── pom.xml
 │── docker-compose.yml
 │── README.md
+│── images
+
 ```
 
+## ⚙️ Imagenes Sonar
+
+### Contiene las captura de sonar local con el reporte realizado.
+
+para ello, se ha hecho una configuración local en docker, se ha creado el token correspondiente en el apartado mySpace Security, y se ha ejecutado el comando:
+
+mvn clean verify sonar:sonar \
+-Dsonar.projectKey=starwars \
+-Dsonar.host.url=http://localhost:9000 \
+-Dsonar.login=squ_61086db1b2b81ffa2c55c1c14a663356420f4bd2
+
+
+```bash
 ## ⚙️ Tecnologías Utilizadas
 
 - **Java 17**
