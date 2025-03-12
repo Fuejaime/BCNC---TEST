@@ -17,6 +17,11 @@ jobs:
       - name: Set up KinD (Kubernetes in Docker)
         uses: helm/kind-action@v1
 
+      # Wait for Kubernetes to be Ready
+      - name: Wait for Kubernetes to be Ready
+        run: |
+          kubectl wait --for=condition=Ready node --all --timeout=120s
+
       # Install ArgoCD
       - name: Install ArgoCD
         run: |
@@ -24,17 +29,22 @@ jobs:
           kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
           kubectl wait --for=condition=available --timeout=600s deployment/argocd-server -n argocd
 
-      # Set up ArgoCD CLI
-      - name: Set up ArgoCD CLI
+      # Wait for ArgoCD to be Ready
+      - name: Wait for ArgoCD to be Ready
         run: |
-          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-          chmod +x argocd-linux-amd64
-          sudo mv argocd-linux-amd64 /usr/local/bin/argocd
+          kubectl wait --for=condition=available --timeout=600s deployment/argocd-server -n argocd
+
+      # Debug ArgoCD Pods
+      - name: Debug ArgoCD Pods
+        run: kubectl get pods -n argocd -o wide
 
       # Get ArgoCD admin password
       - name: Get ArgoCD admin password
         run: |
-          ARGO_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+          while [[ -z "$ARGO_PWD" ]]; do
+            sleep 5
+            ARGO_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d || echo "")
+          done
           echo "::add-mask::$ARGO_PWD"
           echo "ARGOCD_PASSWORD=$ARGO_PWD" >> $GITHUB_ENV
 
@@ -43,9 +53,21 @@ jobs:
         run: |
           kubectl port-forward svc/argocd-server -n argocd 8080:80 &
           sleep 10
-          argocd login localhost:8080 --username admin --password "${{ env.ARGOCD_PASSWORD }}" --insecure
+          argocd login localhost:8080 --username admin --password "${{ env.ARGOCD_PASSWORD }}" --insecure --grpc-web
 
-      # Deploy the application
+      # Verify Application Exists
+      - name: Verify Application Exists
+        run: |
+          if ! argocd app get BCNC; then
+            echo "Application BCNC does not exist! Creating..."
+            argocd app create BCNC \
+              --repo https://github.com/fuejaime/mi-repo.git \
+              --path k8s \
+              --dest-server https://kubernetes.default.svc \
+              --dest-namespace default
+          fi
+
+      # Deploy application
       - name: Deploy application
         run: |
           argocd app sync BCNC
