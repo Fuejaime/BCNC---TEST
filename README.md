@@ -162,6 +162,8 @@ curl --location 'http://localhost:8080/price?productId=35455&brandId=1&applicati
 
 ✔ **SOLID Principles and Clean Code**.
 
+✔ **Global Handler Exception**.
+
 ✔ **Jacoco Report added**.
 
 ✔ **Responses with specific HTTP status codes**.
