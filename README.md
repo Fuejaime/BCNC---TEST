@@ -1,18 +1,18 @@
 # StarWars Application
 
-Este proyecto es una aplicación basada en **Spring Boot** que expone una API para obtener información de precios.
+This project is an application based on **Spring Boot** that exposes an API to get pricing information.
 
-## 🚀 Despliegue
+## 🚀 Deployment
 
-Una vez desplegado, los elementos estarán disponibles en la siguiente URL:
+Once deployed, the endpoints will be available at the following URL:
 
 ```
 http://localhost:8080/price
 ```
 
-## 📂 Estructura del Proyecto
+## 📂 Project Structure
 
-La estructura del proyecto sigue la arquitectura estándar de **Spring Boot**:
+The project structure follows the standard **Spring Boot** architecture:
 
 ```
 starwars-application/
@@ -27,118 +27,151 @@ starwars-application/
 
 ```
 
-## ⚙️ Imagenes Sonar
+## ⚙️ Sonar Images
 
-### Contiene las captura de sonar local con el reporte realizado.
+Contains screenshots of local Sonar with the generated report.
 
-se adiciona sonarcloud con github Actions, donde se hace 2 iteraciones,  ejecución más ejecución de Test.
+SonarCloud is added with GitHub Actions, where two iterations are made: execution and test execution.
 
 
+## ⚙️ **Architecture and Design**
 
-## ⚙️ Tecnologías Utilizadas
+- **Contract**: Exposure of the REST controllers.
+- **Domain**: Business logic and entities.
+- **Application**: Orchestration of business logic.
+- **Infrastructure**: Implementation of repositories and persistence.
+
+## ⚙️ Technologies Used
 ```bash
 
-- **Java 17**
-- **Spring Boot 3.x**
-- **Spring Data JPA**
-- **H2 Database (en memoria para pruebas)**
-- **JUnit 5 & Mockito**
-- **Maven**
-- **Docker & Docker Compose**
-- **Lombok**
-- **JaCoCo** (para cobertura de código)
-- **SonarQube CLOUD** (para análisis de calidad)
+Java 17
+Spring Boot 3.x
+H2 Database (en memoria para pruebas)
+JUnit 5 & Mockito
+Maven
+Docker & Docker Compose
+Lombok
+JaCoCo (para cobertura de código)
+SonarCloud (para análisis de calidad)
+OpenApi
 
-## 🔧 Paso 1: Configuración del Proyecto
-
-### 1. Clonar o Descomprimir el Proyecto
-
-Si has descargado el proyecto en un archivo ZIP, descomprímelo. Si estás usando Git, clona el repositorio:
-
-```bash
-git clone https://github.com/Fuejaime/BCNC---TEST.git
-cd starwars-application
 ```
 
-## 🐳 Paso 2: Construcción con Docker (Opcional)
+## 🔧 Step 1: Project Setup
 
-Si deseas ejecutar la aplicación en un contenedor Docker, sigue estos pasos:
+### 1. Clone or Extract the Project
 
-### 1. Construir la imagen con Docker Compose
+If you have downloaded the project as a ZIP file, extract it. If you are using Git, clone the repository:
+
+git clone https://github.com/Fuejaime/BCNC---TEST.git
+cd starwars-application
+
+
+## 🐳 Step 2: Build with Docker (Optional)
+
+If you want to run the application inside a Docker container, follow these steps:
+
+### 1. Build the Docker image using Docker Compose
 
 ```bash
 docker-compose build
 ```
 
-### 2. Levantar los servicios con Docker Compose
+### 2. Start the services with Docker Compose
 
 ```bash
 docker-compose up
 ```
 
-## 🛠️ Paso 3: Compilación y Ejecución con Maven
+## 🛠️ Step 3: Build and Run with Maven
 
 Si prefieres ejecutar la aplicación sin Docker, sigue estos pasos:
 
-### 1. Compilar el código fuente
+### 1. Compile the source code
 
 ```bash
 mvn clean compile
 ```
 
-### 2. Construir el proyecto y generar el JAR
+### 2. Build the project and generate the JAR
 
 ```bash
 mvn clean install
 ```
 
-### 3. Ejecutar la aplicación
+### 3. Run the application
 
 ```bash
 mvn spring-boot:run
 ```
 
-O ejecuta la clase principal directamente:
+Or run the main class directly:
+
 
 ```bash
 java -jar target/starwars-application.jar
 ```
 
-## 🌐 Paso 4: Prueba de la API
+## 🌐 Step 4: Test the API
 
-Puedes probar la API con Postman o cURL.
+You can test the API using Postman or cURL.
 
-### 1. Prueba con Postman
+### 1. Test with Postman
 
-Importa la colección de Postman proporcionada y ejecuta la solicitud correspondiente.
+Import the provided Postman collection and run the corresponding request.
 
-### 2. Prueba con cURL
+### 2.  Test with cURL
 
+The API exposes the following endpoint:
+
+**GET/price**
+
+Example requests:
 ```bash
-curl --location 'http://localhost:8080/price?productId=35455&brandId=1&applicationDate=2020-06-15T21%3A00%3A00' \
+curl --location 'http://localhost:8080/price?productId=35455&brandId=1&applicationDate=2020-06-15T10:00:00' \
 --data ''
 ```
 
-## 📌 Parámetros de la API
+## 📌 API Parameters
+
+**IN**
 
 | Parámetro        | Tipo   | Descripción |
 |-----------------|--------|-------------|
-| `productId`     | Número | ID del producto |
-| `brandId`       | Número | ID de la marca |
-| `applicationDate` | String (ISO-8601) | Fecha de aplicación en formato `yyyy-MM-dd'T'HH:mm:ss` |
+| `productId`     | Number | Product ID |
+| `brandId`       | Number | Brand ID |
+| `applicationDate` | String (ISO-8601) | Application date in format `yyyy-MM-dd'T'HH:mm:ss` |
 
-## ✅ Buenas Prácticas Implementadas
+**OUT**
 
-✔ **Arquitectura Hexagonal** (Separación de capas y sin acoplamientos).
+| Parámetro        | Tipo   | Descripción |
+|-----------------|--------|-------------|
+| `productId`     | Number | Product ID |
+| `brandId`       | Number | Brand ID |
+| `startDate` | String (ISO-8601) | Application start date in format `yyyy-MM-dd'T'HH:mm:ss` |
+| `endDate` | String (ISO-8601) | Application start date in format `yyyy-MM-dd'T'HH:mm:ss` |
+| `priceList`       | Number | Price list |
+| `priority`       | Number | Priority |
+| `price`       | Decimal | Price |
+| `currency`       | String | Currency |
 
-✔ **Principios SOLID y Clean Code**.
 
-✔ **Adicion Jacoco Report**.
+## ✅ Best Practices Implemented
 
-✔ **Respuestas con códigos HTTP específicos**.
+✔ **Hexagonal Architecture** (Layer separation with no coupling).
 
-✔ **Estrategia de commits con convenciones estándar**.
+✔ **SOLID Principles and Clean Code**.
 
-## 📜 Licencia
+✔ **Jacoco Report added**.
 
-Este proyecto está bajo la licencia MIT. Ver el archivo `LICENSE` para más detalles.
+✔ **Responses with specific HTTP status codes**.
+
+✔ **Improvement of commit strategy with standard conventions**. Ex: 'feat: Add new Format commit'
+
+✔ **SonarCloud Added**. SonarCloud is added for commit validation and test execution for CI implementation.
+
+
+
+## 📜 License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
