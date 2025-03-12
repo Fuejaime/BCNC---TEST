@@ -1,4 +1,4 @@
-name: Deploy to Argo CD
+name: Deploy to ArgoCD
 
 on:
   push:
@@ -9,32 +9,44 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Kubeconfig
-        run: |
-          mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
-          chmod 600 $HOME/.kube/config
+      # Set up KinD (Kubernetes in Docker)
+      - name: Set up KinD (Kubernetes in Docker)
+        uses: helm/kind-action@v1
 
-      - name: Install ArgoCD CLI
+      # Install ArgoCD
+      - name: Install ArgoCD
+        run: |
+          kubectl create namespace argocd
+          kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+          kubectl wait --for=condition=available --timeout=600s deployment/argocd-server -n argocd
+
+      # Set up ArgoCD CLI
+      - name: Set up ArgoCD CLI
         run: |
           curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
           chmod +x argocd-linux-amd64
           sudo mv argocd-linux-amd64 /usr/local/bin/argocd
 
+      # Get ArgoCD admin password
+      - name: Get ArgoCD admin password
+        run: |
+          ARGO_PWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+          echo "::add-mask::$ARGO_PWD"
+          echo "ARGOCD_PASSWORD=$ARGO_PWD" >> $GITHUB_ENV
+
+      # Login to ArgoCD
       - name: Login to ArgoCD
         run: |
-          argocd login localhost:9090 \
-            --username admin \
-            --password ${{ secrets.ARGOCD_PASSWORD }} \
-            --insecure
+          kubectl port-forward svc/argocd-server -n argocd 8080:80 &
+          sleep 10
+          argocd login localhost:8080 --username admin --password "${{ env.ARGOCD_PASSWORD }}" --insecure
 
-      - name: Apply Kubernetes Manifests
-        run: kubectl apply -f k8s/
-
-      - name: Sync Application with Argo CD
+      # Deploy the application
+      - name: Deploy application
         run: |
-          argocd app sync nombre-de-tu-app
-          argocd app wait nombre-de-tu-app --health
+          argocd app sync BCNC
+          argocd app wait BCNC --health
