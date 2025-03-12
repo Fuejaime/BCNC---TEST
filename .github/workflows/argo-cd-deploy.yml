@@ -1,0 +1,40 @@
+name: Deploy to Argo CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+
+      - name: Install ArgoCD CLI
+        run: |
+          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+          chmod +x argocd-linux-amd64
+          sudo mv argocd-linux-amd64 /usr/local/bin/argocd
+
+      - name: Login to ArgoCD
+        run: |
+          argocd login localhost:9090 \
+            --username admin \
+            --password ${{ secrets.ARGOCD_PASSWORD }} \
+            --insecure
+
+      - name: Apply Kubernetes Manifests
+        run: kubectl apply -f k8s/
+
+      - name: Sync Application with Argo CD
+        run: |
+          argocd app sync nombre-de-tu-app
+          argocd app wait nombre-de-tu-app --health
