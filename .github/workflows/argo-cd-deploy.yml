@@ -82,9 +82,9 @@ jobs:
       # Verify Application Exists
       - name: Verify Application Exists
         run: |
-          if ! argocd app get BCNC; then
-            echo "Application BCNC does not exist! Creating..."
-            argocd app create BCNC \
+          if ! argocd app get bcnc; then
+            echo "Application bcnc does not exist! Creating..."
+            argocd app create bcnc \
               --repo https://github.com/Fuejaime/BCNC---TEST.git \
               --path k8s \
               --dest-server https://kubernetes.default.svc \
@@ -94,5 +94,5 @@ jobs:
       # Deploy application
       - name: Deploy application
         run: |
-          argocd app sync BCNC
-          argocd app wait BCNC --health
+          argocd app sync bcnc
+          argocd app wait bcnc --health
