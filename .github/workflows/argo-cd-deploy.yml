@@ -68,7 +68,7 @@ jobs:
           if ! argocd app get BCNC; then
             echo "Application BCNC does not exist! Creating..."
             argocd app create BCNC \
-              --repo https://github.com/fuejaime/mi-repo.git \
+              --repo https://github.com/Fuejaime/BCNC---TEST.git \
               --path k8s \
               --dest-server https://kubernetes.default.svc \
               --dest-namespace default
