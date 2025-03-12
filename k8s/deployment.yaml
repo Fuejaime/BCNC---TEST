@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bcnc-app
+  labels:
+    app: bcnc-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bcnc-app
+  template:
+    metadata:
+      labels:
+        app: bcnc-app
+    spec:
+      containers:
+        - name: bcnc-app
+          image: jaumet1417/BCNCapp:latest  # Imagen con formato correcto
+          ports:
+            - containerPort: 8080

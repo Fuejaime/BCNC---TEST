@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bcnc-service
+spec:
+  selector:
+    app: bcnc-app
+  ports:
+    - protocol: TCP
+      port: 80  # El puerto en el que estará expuesto dentro del clúster
+      targetPort: 8080  # El puerto donde el contenedor escucha
+  type: ClusterIP  # Puedes cambiar esto a LoadBalancer si quieres acceder desde fuera del clúster
