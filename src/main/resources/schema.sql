@@ -16,3 +16,9 @@ CREATE TABLE PRICES (
                         FOREIGN KEY (BRAND_ID) REFERENCES brands(ID)  -- Relación con la tabla brands
 
 );
+
+-- Create indices for the PRICES table
+CREATE INDEX idx_product_id ON PRICES (PRODUCT_ID);
+CREATE INDEX idx_brand_id ON PRICES (BRAND_ID);
+CREATE INDEX idx_start_date ON PRICES (START_DATE);
+CREATE INDEX idx_end_date ON PRICES (END_DATE);
