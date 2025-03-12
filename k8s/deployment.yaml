@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: bcnc-app
-          image: jaumet1417/BCNCapp:latest  # Imagen con formato correcto
+          image: jaumet1417/bcnc-app:latest  # Imagen con formato correcto
           ports:
             - containerPort: 8080
