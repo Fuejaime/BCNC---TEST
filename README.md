@@ -2,6 +2,55 @@
 
 This project is an application based on **Spring Boot** that exposes an API to get pricing information.
 
+## SUMMARY
+
+# Design Patterns and Best Practices Applied
+
+Several design patterns and best practices are applied in the project. Below are some of them and their purpose:
+
+## Hexagonal Architecture
+
+- **Where**: In the project structure, separating the layers of domain, application, infrastructure, and contract.
+- **Purpose**: To decouple the business logic from external dependencies, making maintenance and testing easier.
+
+## SOLID Principles
+
+- **Where**: In the implementation of classes and methods throughout the project.
+- **Purpose**: To create code that is more understandable, flexible, and maintainable.
+
+## Clean Code
+
+- **Where**: In the writing of code in general.
+- **Purpose**: To ensure the code is easy to read, understand, and maintain.
+
+## Global Handler Exception
+
+- **Where**: In the infrastructure layer, specifically in the REST controllers.
+- **Purpose**: To handle exceptions in a centralized manner, improving error management and consistency in responses.
+
+## JaCoCo
+
+- **Where**: In the Maven configuration (pom.xml) and code coverage reports.
+- **Purpose**: To measure code coverage and ensure that tests cover a significant portion of the code.
+
+## SonarCloud
+
+- **Where**: Integrated in GitHub Actions for code quality analysis.
+- **Purpose**: To perform static code analysis and detect potential quality issues.
+
+## Docker and Docker Compose
+
+- **Where**: In the docker-compose.yml files and deployment configuration.
+- **Purpose**: To containerize the application and facilitate its deployment and execution in different environments.
+
+## ArgoCD and KinD
+
+- **Where**: In the `.github/workflows/argo-cd-deploy.yml` file.
+- **Purpose**: To implement continuous deployment in Kubernetes using ArgoCD and KinD (Kubernetes in Docker).
+
+These patterns and principles are implemented to ensure that the code is of high quality, easy to maintain, and scalable.
+
+
 ## 🚀 Deployment
 
 Once deployed, the endpoints will be available at the following URL:
@@ -36,12 +85,19 @@ SonarCloud is added with GitHub Actions, where two iterations are made: executio
 
 ## ⚙️ **Architecture and Design**
 
+**Hexagonal Architecture**: Separates the business logic (domain) from external dependencies (infrastructure, user interfaces, databases). This allows the system to be easier to maintain and test. Additionally, dependencies flow inward from the outside to the core of the application.
+
 - **Contract**: Exposure of the REST controllers.
 - **Domain**: Business logic and entities.
 - **Application**: Orchestration of business logic.
 - **Infrastructure**: Implementation of repositories and persistence.
 
+**Pattern**: Hexagonal Architecture (also known as Ports and Adapters).
+
 ## ⚙️ Technologies Used
+
+The technologies used in the project are as follows, enabling efficient development and modern infrastructure:
+
 ```bash
 
 Java 17
@@ -54,7 +110,10 @@ Lombok
 JaCoCo (para cobertura de código)
 SonarCloud (para análisis de calidad)
 OpenApi
+Argo CD
+DockerHub
 
+Microservices with a focus on Docker Containers and Continuous Integration/Continuous Deployment (CI/CD) tools.
 ```
 
 ## 🔧 Step 1: Project Setup
@@ -158,11 +217,11 @@ curl --location 'http://localhost:8080/price?productId=35455&brandId=1&applicati
 
 ## ✅ Best Practices Implemented
 
-✔ **Hexagonal Architecture** (Layer separation with no coupling).
+✔ **Hexagonal Architecture** (Layer separation with no coupling). Applied to ensure layer separation and independence of business logic from infrastructure.
 
-✔ **SOLID Principles and Clean Code**.
+✔ **SOLID Principles and Clean Code**. For maintainability, and clarity of code.
 
-✔ **Global Handler Exception**.
+✔ **Global Handler Exception**. Implementation of a centralized exception handler to manage errors consistently.
 
 ✔ **Jacoco Report added**.
 
@@ -170,14 +229,15 @@ curl --location 'http://localhost:8080/price?productId=35455&brandId=1&applicati
 
 ✔ **Improvement of commit strategy with standard conventions**. Ex: 'feat: Add new Format commit'
 
-✔ **SonarCloud Added**. SonarCloud is added for commit validation and test execution for CI implementation.
+✔ **SonarCloud Added**. Code is subjected to static analysis via SonarCloud to ensure it meets code quality standards.
 
 ✔ **Add DockerHub**. Docker Hub added to argo deploy.
 
-✔ **Add KinD**. Add KinD to add Kubernetes to CD.
+✔ **KinD**. Add KinD to add Kubernetes to CD.
 
-✔ **Add ArgoCD Deployment**. Add Argo Cd deployment with KinD on GitHub Actions.
+✔ **ArgoCD Deployment**. Add Argo Cd deployment with KinD on GitHub Actions.
 
+✔ **CI/CD with GitHub Actions** Automated pipelines for continuous integration and continuous deployment with tools like Docker and ArgoCD.
 
 ## 📜 License
 
