@@ -172,6 +172,11 @@ curl --location 'http://localhost:8080/price?productId=35455&brandId=1&applicati
 
 ✔ **SonarCloud Added**. SonarCloud is added for commit validation and test execution for CI implementation.
 
+✔ **Add DockerHub**. Docker Hub added to argo deploy.
+
+✔ **Add KinD**. Add KinD to add Kubernetes to CD.
+
+✔ **Add ArgoCD Deployment**. Add Argo Cd deployment with KinD on GitHub Actions.
 
 
 ## 📜 License
