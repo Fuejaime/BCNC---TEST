@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import java.util.List;
+import java.util.Optional;
 
 @Component
 public class FindApplicablePriceImpl implements FindApplicablePrice {
@@ -23,14 +23,11 @@ public class FindApplicablePriceImpl implements FindApplicablePrice {
 
     @Override
     public PriceEntity findApplicablePrice(RequestEntity requestEntityEntity) {
-
-        List<PriceEntity> results = getPriceEntities(requestEntityEntity);
-        return results.stream()
-                .max((e1, e2) -> Integer.compare(e1.getPriority(), e2.getPriority()))
+        return getPriceEntities(requestEntityEntity)
                 .orElseThrow(() -> new PriceNotFoundException("No prices found for the given request"));
     }
 
-    private List<PriceEntity> getPriceEntities(RequestEntity requestEntityEntity) {
+    private Optional<PriceEntity> getPriceEntities(RequestEntity requestEntityEntity) {
         LocalDateTime localDateTime = LocalDateTime.parse(requestEntityEntity.getApplicationDate());
         OffsetDateTime offsetDateTime = localDateTime.atOffset(ZoneOffset.UTC);
         return priceRepository.findByProductIdAndBrandIdAndDate(

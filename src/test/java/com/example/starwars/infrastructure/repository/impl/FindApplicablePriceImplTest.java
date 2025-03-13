@@ -12,9 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,9 +32,7 @@ class FindApplicablePriceImplTest {
     void testFindApplicablePriceReturnsHighestPriority() {
         // Arrange
         RequestEntity requestEntity = getRequestEntity();
-        PriceEntity lowPriorityPrice = getPriceEntity();
-        PriceEntity highPriorityPrice = getEntity();
-        List<PriceEntity> priceEntities = Arrays.asList(lowPriorityPrice, highPriorityPrice);
+        Optional<PriceEntity> priceEntities = Optional.of(getEntity());
         OffsetDateTime applicationDate = OffsetDateTime.parse("2024-08-15T10:00:00Z");
 
         when(priceRepository.findByProductIdAndBrandIdAndDate(requestEntity.getProductId(), (long) requestEntity.getBrandId(), applicationDate))
@@ -61,7 +57,7 @@ class FindApplicablePriceImplTest {
         OffsetDateTime applicationDate = OffsetDateTime.parse("2024-08-15T10:00:00Z");
 
         when(priceRepository.findByProductIdAndBrandIdAndDate(requestEntity.getProductId(), (long) requestEntity.getBrandId(), applicationDate))
-                .thenReturn(Collections.emptyList());
+                .thenReturn(Optional.empty());
 
         // Act & Assert
         assertThrows(PriceNotFoundException.class, () -> {
