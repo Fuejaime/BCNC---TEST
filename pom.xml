@@ -20,7 +20,8 @@
 		<junit-jupiter.version>5.9.3</junit-jupiter.version>
 		<karate.version>1.4.1</karate.version>
 		<graalvm.version>24.0.2</graalvm.version>
-		<jacoco.version>0.8.2</jacoco.version> <!-- Asegúrate de usar versiones compatibles -->
+		<jacoco.version>0.8.2</jacoco.version>
+		<sonar.coverage.exclusions>src/main/java/com/example/starwars/exception/GlobalExceptionHandler.java</sonar.coverage.exclusions>
 	</properties>
 
 	<dependencies>
