@@ -72,13 +72,6 @@ class FindApplicablePriceImplTest {
         return highPriorityPrice;
     }
 
-    private static PriceEntity getPriceEntity() {
-        PriceEntity lowPriorityPrice = new PriceEntity();
-        lowPriorityPrice.setPriority(1);
-        lowPriorityPrice.setPrice(new BigDecimal("50.00"));
-        return lowPriorityPrice;
-    }
-
     private static RequestEntity getRequestEntity() {
         return RequestEntity.builder()
                 .brandId(1)
