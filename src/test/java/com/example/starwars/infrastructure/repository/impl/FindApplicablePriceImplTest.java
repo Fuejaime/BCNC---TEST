@@ -11,7 +11,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,9 +35,14 @@ class FindApplicablePriceImplTest {
         // Arrange
         RequestEntity requestEntity = getRequestEntity();
         Optional<PriceEntity> priceEntities = Optional.of(getEntity());
-        OffsetDateTime applicationDate = OffsetDateTime.parse("2024-08-15T10:00:00Z");
 
-        when(priceRepository.findByProductIdAndBrandIdAndDate(requestEntity.getProductId(), (long) requestEntity.getBrandId(), applicationDate))
+        OffsetDateTime applicationDate = LocalDateTime.parse(requestEntity.getApplicationDate())
+                .atOffset(ZoneOffset.UTC);
+
+        when(priceRepository.findByProductIdAndBrandIdAndDate(
+                requestEntity.getProductId(),
+                (long) requestEntity.getBrandId(),
+                applicationDate))
                 .thenReturn(priceEntities);
 
         // Act
@@ -46,23 +53,38 @@ class FindApplicablePriceImplTest {
         assertThat(result.getPriority()).isEqualTo(2);  // Highest priority
         assertThat(result.getPrice()).isEqualByComparingTo("60.00");
 
-        verify(priceRepository).findByProductIdAndBrandIdAndDate(requestEntity.getProductId(), (long) requestEntity.getBrandId(), applicationDate);
+        verify(priceRepository).findByProductIdAndBrandIdAndDate(
+                requestEntity.getProductId(),
+                (long) requestEntity.getBrandId(),
+                applicationDate);
     }
 
     @Test
-    void testFindApplicablePriceReturnsNullIfNoPricesFound() {
+    void testFindApplicablePriceThrowsExceptionIfNoPricesFound() {
         // Arrange
         RequestEntity requestEntity = getRequestEntity();
 
-        OffsetDateTime applicationDate = OffsetDateTime.parse("2024-08-15T10:00:00Z");
+        // Convertimos la fecha igual que en la implementación
+        OffsetDateTime applicationDate = LocalDateTime.parse(requestEntity.getApplicationDate())
+                .atOffset(ZoneOffset.UTC);
 
-        when(priceRepository.findByProductIdAndBrandIdAndDate(requestEntity.getProductId(), (long) requestEntity.getBrandId(), applicationDate))
+        when(priceRepository.findByProductIdAndBrandIdAndDate(
+                requestEntity.getProductId(),
+                (long) requestEntity.getBrandId(),
+                applicationDate))
                 .thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThrows(PriceNotFoundException.class, () -> {
-            underTest.findApplicablePrice(requestEntity);
-        });
+        PriceNotFoundException thrown = assertThrows(PriceNotFoundException.class, () ->
+                underTest.findApplicablePrice(requestEntity)
+        );
+
+        assertThat(thrown.getMessage()).isEqualTo("No prices found for the given request");
+
+        verify(priceRepository).findByProductIdAndBrandIdAndDate(
+                requestEntity.getProductId(),
+                (long) requestEntity.getBrandId(),
+                applicationDate);
     }
 
     private static PriceEntity getEntity() {
