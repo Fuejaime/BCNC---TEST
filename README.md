@@ -2,6 +2,12 @@
 
 This project is an application based on **Spring Boot** that exposes an API to get pricing information.
 
+## DOCKERHUB
+docker run -d -p 8080:8080 jaumet1417/bcnc-app:latest
+
+After that, use curl --location 'http://localhost:8080/price?productId=35455&brandId=1&applicationDate=2020-06-15T10:00:00'
+
+
 ## SUMMARY
 
 # Design Patterns and Best Practices Applied
