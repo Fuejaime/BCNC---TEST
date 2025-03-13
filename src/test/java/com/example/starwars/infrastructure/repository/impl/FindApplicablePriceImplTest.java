@@ -34,9 +34,7 @@ class FindApplicablePriceImplTest {
     void testFindApplicablePriceReturnsHighestPriority() {
         // Arrange
         RequestEntity requestEntity = getRequestEntity();
-        PriceEntity lowPriorityPrice = getPriceEntity();
-        PriceEntity highPriorityPrice = getEntity();
-        List<PriceEntity> priceEntities = Arrays.asList(lowPriorityPrice, highPriorityPrice);
+        List<PriceEntity> priceEntities = List.of(getEntity());
         OffsetDateTime applicationDate = OffsetDateTime.parse("2024-08-15T10:00:00Z");
 
         when(priceRepository.findByProductIdAndBrandIdAndDate(requestEntity.getProductId(), (long) requestEntity.getBrandId(), applicationDate))
@@ -74,13 +72,6 @@ class FindApplicablePriceImplTest {
         highPriorityPrice.setPriority(2);
         highPriorityPrice.setPrice(new BigDecimal("60.00"));
         return highPriorityPrice;
-    }
-
-    private static PriceEntity getPriceEntity() {
-        PriceEntity lowPriorityPrice = new PriceEntity();
-        lowPriorityPrice.setPriority(1);
-        lowPriorityPrice.setPrice(new BigDecimal("50.00"));
-        return lowPriorityPrice;
     }
 
     private static RequestEntity getRequestEntity() {

@@ -26,7 +26,7 @@ public class FindApplicablePriceImpl implements FindApplicablePrice {
 
         List<PriceEntity> results = getPriceEntities(requestEntityEntity);
         return results.stream()
-                .max((e1, e2) -> Integer.compare(e1.getPriority(), e2.getPriority()))
+                .findFirst()
                 .orElseThrow(() -> new PriceNotFoundException("No prices found for the given request"));
     }
 
