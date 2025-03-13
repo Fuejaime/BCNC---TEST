@@ -16,10 +16,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PriceControllerIT {
 
     @Autowired
-    private MockMvc mockMvc;  // MockMvc automático
+    private MockMvc mockMvc;
 
     @Autowired
-    private PriceUseCase priceUseCase;  // Se inyecta automáticamente el PriceUseCase
+    private PriceUseCase priceUseCase;
 
     @Test
     void testPriceGetIntegration() throws Exception {

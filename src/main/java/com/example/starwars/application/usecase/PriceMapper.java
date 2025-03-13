@@ -23,9 +23,4 @@ public interface PriceMapper {
     default OffsetDateTime localDateTimeToOffsetDateTime(LocalDateTime localDateTime) {
         return localDateTime != null ? localDateTime.atOffset(ZoneOffset.UTC) : null;
     }
-
-    @Named("offsetDateTimeToLocalDateTime")
-    default LocalDateTime offsetDateTimeToLocalDateTime(OffsetDateTime offsetDateTime) {
-        return offsetDateTime != null ? offsetDateTime.toLocalDateTime() : null;
-    }
 }

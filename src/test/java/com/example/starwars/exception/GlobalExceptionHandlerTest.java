@@ -14,6 +14,6 @@ class GlobalExceptionHandlerDirectTest {
     @Test
     void testHandlePriceNotFoundDirectly() {
         ResponseEntity<Void> response = handler.handlePriceNotFound(new PriceNotFoundExceptionDomain("Price not found"));
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode()); // Forzar a Sonar a rastrear esta línea
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }

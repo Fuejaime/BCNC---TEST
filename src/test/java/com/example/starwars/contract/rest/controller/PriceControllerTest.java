@@ -40,7 +40,7 @@ class PriceControllerTest {
     @BeforeEach
     void setup() {
         mockMvc = MockMvcBuilders.standaloneSetup(underTest)
-                .setControllerAdvice(new GlobalExceptionHandler())  // Si tienes un controller advice global
+                .setControllerAdvice(new GlobalExceptionHandler())
                 .build();
     }
 
@@ -77,10 +77,10 @@ class PriceControllerTest {
         when(priceUseCase.getPrice(requestPrice)).thenThrow(new PriceNotFoundExceptionDomain("Price not found"));
 
         // Act & Assert: Verify that a 404 response is returned when exception is thrown
-        mockMvc.perform(get("/price")  // Aquí especificamos el endpoint correcto
-                        .param("applicationDate", now.toString())  // Pasamos el parámetro de la fecha
-                        .param("productId", "1")  // Pasamos el parámetro del productId
-                        .param("brandId", "1"))  // Pasamos el parámetro del brandId
+        mockMvc.perform(get("/price")
+                        .param("applicationDate", now.toString())
+                        .param("productId", "1")
+                        .param("brandId", "1"))
                 .andExpect(status().isNotFound());
 
         // Verify that the exception was triggered and the method was called

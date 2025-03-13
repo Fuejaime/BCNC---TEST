@@ -1,6 +1,6 @@
 CREATE TABLE BRANDS (
-                        ID INT PRIMARY KEY,                    -- Identificador único de la marca
-                        NAME VARCHAR(255) NOT NULL             -- Nombre de la marca
+                        ID INT PRIMARY KEY,
+                        NAME VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE PRICES (
@@ -13,11 +13,11 @@ CREATE TABLE PRICES (
                         PRIORITY INT NOT NULL,
                         PRICE DECIMAL(10,2) NOT NULL,
                         CURR VARCHAR(3) NOT NULL,
-                        FOREIGN KEY (BRAND_ID) REFERENCES brands(ID)  -- Relación con la tabla brands
+                        FOREIGN KEY (BRAND_ID) REFERENCES brands(ID)
 
 );
 
--- Create indices for the PRICES table
+-- Create index for the PRICES table
 CREATE INDEX idx_product_id ON PRICES (PRODUCT_ID);
 CREATE INDEX idx_brand_id ON PRICES (BRAND_ID);
 CREATE INDEX idx_start_date ON PRICES (START_DATE);

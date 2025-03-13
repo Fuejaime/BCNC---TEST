@@ -6,9 +6,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
-		"com.example.starwars", // Paquete base para escaneo automático
-		"com.example.starwars.domain.repository"// Paquete específico donde está el mapper
+		"com.example.starwars",
+		"com.example.starwars.domain.repository"
 })
+
 
 public class StarWarsApplication {
 	public static void main(String[] args) {
