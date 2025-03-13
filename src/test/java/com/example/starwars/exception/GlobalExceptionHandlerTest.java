@@ -7,12 +7,12 @@ import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GlobalExceptionHandlerTest {
+class GlobalExceptionHandlerTest {
 
     private final GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();
 
     @Test
-    public void testHandlePriceNotFound() {
+    void testHandlePriceNotFound() {
         // Arrange
         PriceNotFoundExceptionDomain exception = new PriceNotFoundExceptionDomain("Price not found");
 

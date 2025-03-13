@@ -1,7 +1,5 @@
 package com.example.starwars.contract.rest.controller.integration.controller;
 
-import com.example.starwars.domain.model.Price;
-import com.example.starwars.domain.model.RequestPrice;
 import com.example.starwars.domain.usecase.PriceUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,28 +8,19 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PriceControllerIT {
+class PriceControllerIT {
 
     @Autowired
     private MockMvc mockMvc;  // MockMvc automático
 
     @Autowired
     private PriceUseCase priceUseCase;  // Se inyecta automáticamente el PriceUseCase
-
-    @BeforeEach
-    public void setUp() {
-        // Configuración previa, si es necesario
-    }
 
     @Test
     void testPriceGetIntegration() throws Exception {

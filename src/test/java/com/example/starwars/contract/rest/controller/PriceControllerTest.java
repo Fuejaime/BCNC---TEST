@@ -38,7 +38,7 @@ class PriceControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mockMvc = MockMvcBuilders.standaloneSetup(underTest)
                 .setControllerAdvice(new GlobalExceptionHandler())  // Si tienes un controller advice global
                 .build();

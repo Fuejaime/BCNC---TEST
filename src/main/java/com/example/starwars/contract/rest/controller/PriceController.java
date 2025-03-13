@@ -20,6 +20,7 @@ public class PriceController implements PriceApi {
         this.priceUseCase = priceUseCase;
     }
 
+    @Override
     @GetMapping("/price")
     public ResponseEntity<PriceGet200Response> priceGet(String applicationDate, Integer productId, Integer brandId) {
             return ResponseEntity.ok(PriceMapper.INSTANCE.priceToPriceGet200Response(getPrice(applicationDate, productId, brandId)));
