@@ -2,6 +2,7 @@ package com.example.starwars.exception;
 
 import com.example.starwars.domain.exception.PriceNotFoundExceptionDomain;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 
@@ -20,6 +21,6 @@ class GlobalExceptionHandlerTest {
         ResponseEntity<Void> response = globalExceptionHandler.handlePriceNotFound(exception);
 
         // Assert
-        assertEquals(ResponseEntity.notFound().build(), response);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }
