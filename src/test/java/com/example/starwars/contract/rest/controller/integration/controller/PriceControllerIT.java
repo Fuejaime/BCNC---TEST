@@ -38,4 +38,14 @@ class PriceControllerIT {
                 .andExpect(jsonPath("$.startDate").value("2020-06-14T00:00:00Z"))
                 .andExpect(jsonPath("$.endDate").value("2020-12-31T23:59:59Z"));
     }
+
+    @Test
+    void testException() throws Exception {
+
+        mockMvc.perform(get("/price")
+                        .param("applicationDate", "2020-06-15T10:00:00")
+                        .param("productId", "35455")
+                        .param("brandId", "2"))
+                .andExpect(status().isNotFound());  // Verifica que la respuesta sea 404 Not Found
+    }
 }
