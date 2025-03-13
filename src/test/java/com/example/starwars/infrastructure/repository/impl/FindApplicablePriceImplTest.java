@@ -14,7 +14,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import java.util.Optional;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,8 +36,9 @@ class FindApplicablePriceImplTest {
     void testFindApplicablePriceReturnsHighestPriority() {
         // Arrange
         RequestEntity requestEntity = getRequestEntity();
-        Optional<PriceEntity> priceEntities = Optional.of(getEntity());
-
+        PriceEntity lowPriorityPrice = getPriceEntity();
+        PriceEntity highPriorityPrice = getEntity();
+        List<PriceEntity> priceEntities = Arrays.asList(lowPriorityPrice, highPriorityPrice);
         OffsetDateTime applicationDate = LocalDateTime.parse(requestEntity.getApplicationDate())
                 .atOffset(ZoneOffset.UTC);
 
@@ -70,9 +73,8 @@ class FindApplicablePriceImplTest {
 
         when(priceRepository.findByProductIdAndBrandIdAndDate(
                 requestEntity.getProductId(),
-                (long) requestEntity.getBrandId(),
-                applicationDate))
-                .thenReturn(Optional.empty());
+                (long) requestEntity.getBrandId(), applicationDate))
+                .thenReturn(Collections.emptyList());
 
         // Act & Assert
         PriceNotFoundException thrown = assertThrows(PriceNotFoundException.class, () ->
@@ -92,6 +94,13 @@ class FindApplicablePriceImplTest {
         highPriorityPrice.setPriority(2);
         highPriorityPrice.setPrice(new BigDecimal("60.00"));
         return highPriorityPrice;
+    }
+
+    private static PriceEntity getPriceEntity() {
+        PriceEntity lowPriorityPrice = new PriceEntity();
+        lowPriorityPrice.setPriority(1);
+        lowPriorityPrice.setPrice(new BigDecimal("50.00"));
+        return lowPriorityPrice;
     }
 
     private static RequestEntity getRequestEntity() {

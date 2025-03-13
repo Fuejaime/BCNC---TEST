@@ -7,13 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.OffsetDateTime;
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface PriceRepository extends JpaRepository<PriceEntity, Long> {
     @Query("SELECT p FROM PriceEntity p WHERE p.productId = :productId AND p.brand.id = :brandId " +
             "AND p.startDate <= :date AND p.endDate >= :date ORDER BY p.priority DESC LIMIT 1")
-    Optional<PriceEntity> findByProductIdAndBrandIdAndDate(
+    List<PriceEntity> findByProductIdAndBrandIdAndDate(
             @Param("productId") int productId,
             @Param("brandId") Long brandId,
             @Param("date") OffsetDateTime date);
