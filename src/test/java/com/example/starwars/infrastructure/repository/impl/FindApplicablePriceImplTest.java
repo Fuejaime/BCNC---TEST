@@ -47,8 +47,8 @@ class FindApplicablePriceImplTest {
 
         // Assert
         assertThat(result).isNotNull();
-        assertThat(result.getPriority()).isEqualTo(1);
-        assertThat(result.getPrice()).isEqualByComparingTo("50.00");
+        assertThat(result.getPriority()).isEqualTo(2);  // Highest priority
+        assertThat(result.getPrice()).isEqualByComparingTo("60.00");
 
         verify(priceRepository).findByProductIdAndBrandIdAndDate(requestEntity.getProductId(), (long) requestEntity.getBrandId(), applicationDate);
     }

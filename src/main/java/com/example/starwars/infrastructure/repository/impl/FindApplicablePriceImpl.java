@@ -23,9 +23,10 @@ public class FindApplicablePriceImpl implements FindApplicablePrice {
 
     @Override
     public PriceEntity findApplicablePrice(RequestEntity requestEntityEntity) {
+
         List<PriceEntity> results = getPriceEntities(requestEntityEntity);
         return results.stream()
-                .findFirst()
+                .max((e1, e2) -> Integer.compare(e1.getPriority(), e2.getPriority()))
                 .orElseThrow(() -> new PriceNotFoundException("No prices found for the given request"));
     }
 
